@@ -722,10 +722,6 @@ components:
           type: string
         password:
           type: string
-        adminStatus:
-          type: integer
-          description: Admin Status
-          format: int32
       xml:
         name: User
     User:
@@ -742,10 +738,6 @@ components:
           type: string
         phone:
           type: string
-        userStatus:
-          type: integer
-          description: User Status
-          format: int32
       xml:
         name: User
     Tag:
