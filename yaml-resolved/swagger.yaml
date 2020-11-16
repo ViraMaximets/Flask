@@ -28,26 +28,6 @@ tags:
   description: Operations of admin
 paths:
   /car:
-    put:
-      tags:
-      - car
-      summary: Update an existing car
-      operationId: updateCar
-      requestBody:
-        $ref: '#/components/requestBodies/Car'
-      responses:
-        "400":
-          description: Invalid ID supplied
-        "403":
-          description: Forbidden. Not authorized
-        "404":
-          description: Car not found
-        "405":
-          description: Validation exception
-      security:
-      - carstore_auth:
-        - write:cars
-        - read:cars
     post:
       tags:
       - car
@@ -140,8 +120,8 @@ paths:
     post:
       tags:
       - car
-      summary: Updates a car in the store with form data
-      operationId: updateCarWithForm
+      summary: Update an existing car
+      operationId: updateCar
       parameters:
       - name: carId
         in: path
