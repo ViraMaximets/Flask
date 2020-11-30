@@ -1,5 +1,13 @@
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, scoped_session
 from main import db
+from sqlalchemy import create_engine
 
+engine = create_engine('mysql://Vanilla:VanillaSuper_@db/fdb')
+
+SessionFactory = sessionmaker(bind=engine)
+Session = scoped_session(SessionFactory)
+BaseModel = declarative_base
 
 class Admin(db.Model):
     __tablename__ = 'admin'
@@ -9,28 +17,15 @@ class Admin(db.Model):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
 
-    def __init__(self, userId=None, username=None, email=None, password=None):
-        self.userId = userId
-        self.username = username
-        self.email = email
-        self.password = password
-
 
 class Car(db.Model):
     __tablename__ = 'car'
 
     carId = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
-    brand = db.Column(db.Integer, db.ForeignKey('brand.brandId'), nullable=False)
-    tag = db.Column(db.Integer, db.ForeignKey('tag.tagId'), nullable=False)
+    brand = db.Column(db.Integer, db.ForeignKey('brand.brandId'))
+    tag = db.Column(db.Integer, db.ForeignKey('tag.tagId'))
     photoUrl = db.Column(db.String(200))
     status = db.Column(db.Integer, nullable=False)
-
-    def __init__(self, carId=None, brand=None, tag=None, photoUrl=None, status=None):
-        self.carId = carId
-        self.brand = brand
-        self.tag = tag
-        self.photoUrl = photoUrl
-        self.status = status
 
 
 class Brand(db.Model):
@@ -38,11 +33,6 @@ class Brand(db.Model):
 
     brandId = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
-    cars = db.relationship('Car')
-
-    def __init__(self, brandId=None, name=None):
-        self.brandId = brandId
-        self.name = name
 
 
 class Rent(db.Model):
@@ -50,18 +40,11 @@ class Rent(db.Model):
 
     rentId = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     carId = db.Column(db.Integer, db.ForeignKey('car.carId'), nullable=False)
-    startT = db.Column(db.DateTime, nullable=False)
-    endT = db.Column(db.DateTime, nullable=False)
+    #startT = db.Column(db.Date, nullable=False)
+    #endT = db.Column(db.Date, nullable=False)
+    startT = db.Column(db.String(10), nullable=False)
+    endT = db.Column(db.String(10), nullable=False)
     status = db.Column(db.Integer, nullable=False)
-
-    car = db.relationship('Car')
-
-    def __init__(self, rentId=None, carId=None, startT=None, endT=None, status=None):
-        self.rentId = rentId
-        self.carId = carId
-        self.startT = startT
-        self.endT = endT
-        self.status = status
 
 
 class Tag(db.Model):
@@ -69,11 +52,6 @@ class Tag(db.Model):
 
     tagId = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
-    cars = db.relationship('Car')
-
-    def __init__(self, tagId=None, name=None):
-        self.tagId = tagId
-        self.name = name
 
 
 class User(db.Model):
@@ -83,9 +61,3 @@ class User(db.Model):
     username = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
-
-    def __init__(self, userId=None, username=None, email=None, password=None):
-        self.userId = userId
-        self.username = username
-        self.email = email
-        self.password = password
