@@ -131,8 +131,5 @@ dmypy.json
 #PyCharme
 .idea
 *.xml
-.idea/dataSources/6013a86e-96fe-470a-a647-ef20ca5588ad.xml
-.idea/dataSources/6013a86e-96fe-470a-a647-ef20ca5588ad.xml
-.idea/sqldialects.xml
-.idea/workspace.xml
-.idea/sqldialects.xml
+/alembic/versions
+/alembic/script.py.mako
