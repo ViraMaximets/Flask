@@ -3,11 +3,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from main import db
 from sqlalchemy import create_engine
 
-engine = create_engine('mysql://Vanilla:VanillaSuper_@db/fdb')
 
-SessionFactory = sessionmaker(bind=engine)
-Session = scoped_session(SessionFactory)
-BaseModel = declarative_base
 
 class Admin(db.Model):
     __tablename__ = 'admin'

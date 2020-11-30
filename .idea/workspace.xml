@@ -20,10 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a79771bd-bf9f-4667-918d-ce8cf9ffe13f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/create_tables.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/6013a86e-96fe-470a-a647-ef20ca5588ad.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6013a86e-96fe-470a-a647-ef20ca5588ad.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
     </list>
@@ -55,6 +55,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunManager" selected="Python.create_models">
+    <configuration name="create_tables.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/create_tables.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="6013a86e-96fe-470a-a647-ef20ca5588ad" namespace="schema/&quot;fdb&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="Flask_Project" type="PythonConfigurationType" factoryName="Python">
       <module name="Flask_Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -102,6 +108,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.create_models" />
+        <item itemvalue="Database Script.create_tables.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -138,28 +145,28 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="63" y="225" key="#SQL_Dialects/0.0.1366.768@0.0.1366.768" timestamp="1606723380425" />
-    <state width="1323" height="108" key="GridCell.Tab.0.bottom" timestamp="1606727172860">
+    <state width="1323" height="160" key="GridCell.Tab.0.bottom" timestamp="1606730904857">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="108" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1606727172860" />
-    <state width="1323" height="108" key="GridCell.Tab.0.center" timestamp="1606727172860">
+    <state width="1323" height="160" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1606730904857" />
+    <state width="1323" height="160" key="GridCell.Tab.0.center" timestamp="1606730904857">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="108" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1606727172860" />
-    <state width="1323" height="108" key="GridCell.Tab.0.left" timestamp="1606727172860">
+    <state width="1323" height="160" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1606730904857" />
+    <state width="1323" height="160" key="GridCell.Tab.0.left" timestamp="1606730904857">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="108" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1606727172860" />
-    <state width="1323" height="108" key="GridCell.Tab.0.right" timestamp="1606727172860">
+    <state width="1323" height="160" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1606730904857" />
+    <state width="1323" height="160" key="GridCell.Tab.0.right" timestamp="1606730904857">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="108" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1606727172860" />
-    <state x="688" y="105" width="560" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1606680065210">
+    <state width="1323" height="160" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1606730904857" />
+    <state x="92" y="92" width="1182" height="584" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1606730043690">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="688" y="105" width="560" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1606680065210" />
+    <state x="92" y="92" width="1182" height="584" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1606730043690" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Flask_Project$create_models.coverage" NAME="create_models Coverage Results" MODIFIED="1606727085448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flask_Project$create_models.coverage" NAME="create_models Coverage Results" MODIFIED="1606730904836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
