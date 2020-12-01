@@ -130,3 +130,6 @@ dmypy.json
 
 #PyCharme
 .idea
+*.xml
+/alembic/versions
+/alembic/script.py.mako

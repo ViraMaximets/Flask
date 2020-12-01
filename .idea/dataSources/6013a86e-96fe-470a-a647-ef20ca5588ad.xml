@@ -921,182 +921,187 @@ SELECT|sys.sys_config:null
 </ObjectGrants>
     </user>
     <table id="287" parent="3" name="admin"/>
-    <table id="288" parent="3" name="brand"/>
-    <table id="289" parent="3" name="car"/>
-    <table id="290" parent="3" name="rent"/>
-    <table id="291" parent="3" name="tag"/>
-    <table id="292" parent="3" name="user"/>
-    <column id="293" parent="287" name="adminId">
+    <table id="288" parent="3" name="alembic_version"/>
+    <table id="289" parent="3" name="brand"/>
+    <table id="290" parent="3" name="car"/>
+    <table id="291" parent="3" name="rent"/>
+    <table id="292" parent="3" name="tag"/>
+    <table id="293" parent="3" name="user"/>
+    <column id="294" parent="287" name="adminId">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="294" parent="287" name="username">
+    <column id="295" parent="287" name="username">
       <Position>2</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="295" parent="287" name="email">
+    <column id="296" parent="287" name="email">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="296" parent="287" name="password">
+    <column id="297" parent="287" name="password">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="297" parent="287" name="PRIMARY">
+    <key id="298" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>adminId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="298" parent="288" name="brandId">
+    <column id="299" parent="288" name="version_num">
       <Position>1</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="299" parent="288" name="name">
-      <Position>2</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="300" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>brandId</ColNames>
+      <ColNames>version_num</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="301" parent="289" name="carId">
+    <column id="301" parent="289" name="brandId">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="302" parent="289" name="brand">
-      <Position>2</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="303" parent="289" name="tag">
-      <Position>3</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="304" parent="289" name="photoUrl">
-      <Position>4</Position>
-      <DataType>varchar(200)|0s</DataType>
-    </column>
-    <column id="305" parent="289" name="status">
-      <Position>5</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="306" parent="289" name="brand">
-      <ColNames>brand</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="307" parent="289" name="tag">
-      <ColNames>tag</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="308" parent="289" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>carId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="309" parent="289" name="car_ibfk_1">
-      <ColNames>brand</ColNames>
-      <RefTableName>brand</RefTableName>
-      <RefColNames>brandId</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="310" parent="289" name="car_ibfk_2">
-      <ColNames>tag</ColNames>
-      <RefTableName>tag</RefTableName>
-      <RefColNames>tagId</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="311" parent="290" name="rentId">
-      <Position>1</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="312" parent="290" name="carId">
-      <Position>2</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="313" parent="290" name="startT">
-      <Position>3</Position>
-      <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="314" parent="290" name="endT">
-      <Position>4</Position>
-      <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="315" parent="290" name="status">
-      <Position>5</Position>
-      <DataType>tinyint|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="316" parent="290" name="carId">
-      <ColNames>carId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="317" parent="290" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>rentId</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="318" parent="290" name="rent_ibfk_1">
-      <ColNames>carId</ColNames>
-      <RefTableName>car</RefTableName>
-      <RefColNames>carId</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="319" parent="291" name="tagId">
-      <Position>1</Position>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="320" parent="291" name="name">
+    <column id="302" parent="289" name="name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="321" parent="291" name="PRIMARY">
+    <key id="303" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>tagId</ColNames>
+      <ColNames>brandId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="322" parent="292" name="userId">
+    <column id="304" parent="290" name="carId">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="323" parent="292" name="username">
+    <column id="305" parent="290" name="brand_id">
+      <Position>2</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="306" parent="290" name="tag_id">
+      <Position>3</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="307" parent="290" name="photoUrl">
+      <Position>4</Position>
+      <DataType>varchar(200)|0s</DataType>
+    </column>
+    <column id="308" parent="290" name="status">
+      <Position>5</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="309" parent="290" name="brand_id">
+      <ColNames>brand_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="310" parent="290" name="tag_id">
+      <ColNames>tag_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="311" parent="290" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>carId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="312" parent="290" name="car_ibfk_1">
+      <ColNames>brand_id</ColNames>
+      <RefTableName>brand</RefTableName>
+      <RefColNames>brandId</RefColNames>
+    </foreign-key>
+    <foreign-key id="313" parent="290" name="car_ibfk_2">
+      <ColNames>tag_id</ColNames>
+      <RefTableName>tag</RefTableName>
+      <RefColNames>tagId</RefColNames>
+    </foreign-key>
+    <column id="314" parent="291" name="rentId">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="315" parent="291" name="car_id">
+      <Position>2</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="316" parent="291" name="startT">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="317" parent="291" name="endT">
+      <Position>4</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="318" parent="291" name="status">
+      <Position>5</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="319" parent="291" name="car_id">
+      <ColNames>car_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="320" parent="291" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>rentId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="321" parent="291" name="rent_ibfk_1">
+      <ColNames>car_id</ColNames>
+      <RefTableName>car</RefTableName>
+      <RefColNames>carId</RefColNames>
+    </foreign-key>
+    <column id="322" parent="292" name="tagId">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="323" parent="292" name="name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="324" parent="292" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>tagId</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="325" parent="293" name="userId">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="326" parent="293" name="username">
       <Position>2</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="324" parent="292" name="email">
+    <column id="327" parent="293" name="email">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="325" parent="292" name="password">
+    <column id="328" parent="293" name="password">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="326" parent="292" name="PRIMARY">
+    <key id="329" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userId</ColNames>
       <Primary>1</Primary>
