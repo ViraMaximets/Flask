@@ -4,7 +4,7 @@ from main import db, Base
 class Admin(Base):
     __tablename__ = 'admin'
 
-    adminId = db.Column(db.Integer, nullable=False, primary_key=True)
+    adminId = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
@@ -12,21 +12,21 @@ class Admin(Base):
 class Brand(Base):
     __tablename__ = 'brand'
 
-    brandId = db.Column(db.Integer, nullable=False, primary_key=True)
+    brandId = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
 
 
 class Tag(Base):
     __tablename__ = 'tag'
 
-    tagId = db.Column(db.Integer, nullable=False, primary_key=True)
+    tagId = db.Column(db.Integer,  primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
 
 
 class Car(Base):
     __tablename__ = 'car'
 
-    carId = db.Column(db.Integer, nullable=False, primary_key=True)
+    carId = db.Column(db.Integer,  primary_key=True, autoincrement=True)
 
     brand_id = db.Column(db.Integer, db.ForeignKey(Brand.brandId))
     brand = db.relationship(Brand, backref=db.backref('brand'))
@@ -37,11 +37,21 @@ class Car(Base):
     photoUrl = db.Column(db.String(200))
     status = db.Column(db.Integer, nullable=False)
 
+class User(Base):
+    __tablename__ = 'user'
+
+    userId = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    username = db.Column(db.String(40), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(40), nullable=False)
 
 class Rent(Base):
     __tablename__ = 'rent'
 
-    rentId = db.Column(db.Integer, nullable=False, primary_key=True)
+    rentId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    owner_id = db.Column(db.Integer, db.ForeignKey(User.userId))
+    owner = db.relationship(User, backref=db.backref('owner'))
 
     car_id = db.Column(db.Integer, db.ForeignKey(Car.carId))
     car = db.relationship(Car, backref=db.backref('car'))
@@ -53,10 +63,4 @@ class Rent(Base):
     status = db.Column(db.Integer, nullable=False)
 
 
-class User(Base):
-    __tablename__ = 'user'
 
-    userId = db.Column(db.Integer, primary_key=True, nullable=False)
-    username = db.Column(db.String(40), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(40), nullable=False)
