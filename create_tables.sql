@@ -1,55 +1,61 @@
 USE fdb;
 
 CREATE TABLE user (
-    userId INTEGER  NOT NULL,
+    userId INTEGER  NOT NULL AUTO_INCREMENT,
     username VARCHAR(40) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(40) NOT NULL,
     PRIMARY KEY (userId)
 );
 CREATE TABLE admin (
-    adminId INTEGER  NOT NULL,
+    adminId INTEGER  NOT NULL AUTO_INCREMENT,
     username VARCHAR(40) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(40) NOT NULL,
+
     PRIMARY KEY (adminId)
 );
 CREATE TABLE brand (
-    brandId INTEGER  NOT NULL,
+    brandId INTEGER  NOT NULL AUTO_INCREMENT,
     name VARCHAR(40) NOT NULL,
+
     PRIMARY KEY (brandId)
 );
 CREATE TABLE tag (
-    tagId INTEGER  NOT NULL,
+    tagId INTEGER  NOT NULL AUTO_INCREMENT,
     name VARCHAR(40) NOT NULL,
+
     PRIMARY KEY (tagId)
 );
 CREATE TABLE car (
-    carId INTEGER NOT NULL,
-    brand INTEGER,
-    tag INTEGER,
+    carId INTEGER NOT NULL AUTO_INCREMENT,
+
+    brand_id INTEGER,
+    tag_id INTEGER,
     photoUrl VARCHAR(200),
     status TINYINT NOT NULL,
+
     PRIMARY KEY (carId),
-    FOREIGN KEY (brand) REFERENCES brand (brandId)  ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (tag) REFERENCES tag (tagId)  ON DELETE CASCADE ON UPDATE CASCADE
+
+    FOREIGN KEY (brand_id) REFERENCES brand(brandId),
+    FOREIGN KEY (tag_id) REFERENCES tag(tagId)
 );
 CREATE TABLE rent (
-    rentId INTEGER NOT NULL,
-    carId INTEGER NOT NULL,
+    rentId INTEGER NOT NULL AUTO_INCREMENT,
+    car_id INTEGER NOT NULL,
     startT datetime NOT NULL,
     endT datetime NOT NULL,
     status TINYINT NOT NULL,
+
     PRIMARY KEY (rentId),
-    FOREIGN KEY (carId) REFERENCES car (carId)  ON DELETE CASCADE ON UPDATE CASCADE
+
+    FOREIGN KEY (car_id) REFERENCES car(carId)
 );
 
 
-INSERT INTO user
-VALUES (2,'Liz','liz@gmail.com', '12345');
+INSERT INTO user (userId, username, email, password)
+VALUES (1,'Liz','liz@gmail.com','12345');
 
-INSERT INTO brand
-VALUES (2,'BMW');
+INSERT INTO brand (brandId, name)
+VALUES (1, 'bmw')
 
-INSERT INTO tag
-VALUES (2,'bmws');
