@@ -1,4 +1,5 @@
 from main import db, Base
+import enum
 
 
 class Admin(Base):
@@ -9,6 +10,7 @@ class Admin(Base):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
 
+
 class Brand(Base):
     __tablename__ = 'brand'
 
@@ -16,34 +18,34 @@ class Brand(Base):
     name = db.Column(db.String(50), nullable=False)
 
 
-class Tag(Base):
-    __tablename__ = 'tag'
-
-    tagId = db.Column(db.Integer,  primary_key=True, autoincrement=True)
-    name = db.Column(db.String(50), nullable=False)
-
-
 class Car(Base):
     __tablename__ = 'car'
 
-    carId = db.Column(db.Integer,  primary_key=True, autoincrement=True)
+    carId = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     brand_id = db.Column(db.Integer, db.ForeignKey(Brand.brandId))
     brand = db.relationship(Brand, backref=db.backref('brand'))
 
-    tag_id = db.Column(db.Integer, db.ForeignKey(Tag.tagId))
-    tag = db.relationship(Tag, backref=db.backref('tag'))
+    model = db.Column(db.String(50), nullable=False)
 
+    description = db.Column(db.String(200))
     photoUrl = db.Column(db.String(200))
-    status = db.Column(db.Integer, nullable=False)
+
 
 class User(Base):
     __tablename__ = 'user'
 
-    userId = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
+
+
+class RentStatus(enum.Enum):
+    REQUEST = 1
+    APPROVED = 2
+    DENIED = 3
+
 
 class Rent(Base):
     __tablename__ = 'rent'
@@ -56,11 +58,11 @@ class Rent(Base):
     car_id = db.Column(db.Integer, db.ForeignKey(Car.carId))
     car = db.relationship(Car, backref=db.backref('car'))
 
-    #startT = db.Column(db.Date, nullable=False)
-    #endT = db.Column(db.Date, nullable=False)
+    # startT = db.Column(db.Date, nullable=False)
+    # endT = db.Column(db.Date, nullable=False)
     startT = db.Column(db.String(20), nullable=False)
     endT = db.Column(db.String(20), nullable=False)
-    status = db.Column(db.Integer, nullable=False)
 
+    status = db.Column(db.Integer, default=RentStatus.REQUEST.value)
 
 
