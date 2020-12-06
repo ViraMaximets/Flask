@@ -134,3 +134,5 @@ dmypy.json
 /alembic/versions
 /alembic/script.py.mako
 *.xml
+*.meta
+*.xml
