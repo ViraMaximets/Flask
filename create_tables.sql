@@ -21,24 +21,20 @@ CREATE TABLE brand (
 
     PRIMARY KEY (brandId)
 );
-CREATE TABLE tag (
-    tagId INTEGER  NOT NULL AUTO_INCREMENT,
-    name VARCHAR(40) NOT NULL,
 
-    PRIMARY KEY (tagId)
-);
 CREATE TABLE car (
     carId INTEGER NOT NULL AUTO_INCREMENT,
 
-    brand_id INTEGER,
-    tag_id INTEGER,
+    brand_id INTEGER  NOT NULL,
+    tag_id INTEGER  NOT NULL,
+    model VARCHAR(50) NOT NULL,
+
+    description  VARCHAR(200),
     photoUrl VARCHAR(200),
-    status TINYINT NOT NULL,
 
     PRIMARY KEY (carId),
 
     FOREIGN KEY (brand_id) REFERENCES brand(brandId),
-    FOREIGN KEY (tag_id) REFERENCES tag(tagId)
 );
 CREATE TABLE rent (
     rentId INTEGER NOT NULL AUTO_INCREMENT,
