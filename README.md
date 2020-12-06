@@ -11,7 +11,7 @@ To FIRST run this project, you need:
 7. Run create_models to add notes in db
 
 To run this project, you need:
-1. Check if you connect to a datebase
+1. Check if you are connected to a datebase
 2. Run create_models to add notes in db
 
 Tips:
