@@ -127,15 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-#PyCharme
-.idea
-idea/
-.idea/
-
-#Another
-*.xml
-/alembic/versions
-/alembic/script.py.mako
 *.meta
-
