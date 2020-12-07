@@ -19,14 +19,20 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:lab7" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a79771bd-bf9f-4667-918d-ce8cf9ffe13f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/create_tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +47,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="lab6" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JupyterTrust" id="8804c6be-68fd-4c84-b601-7719a7b55424" />
@@ -179,23 +180,8 @@
       <workItem from="1606677871773" duration="2041000" />
       <workItem from="1606722988050" duration="5100000" />
       <workItem from="1606910750136" duration="6110000" />
-      <workItem from="1607276533380" duration="4137000" />
+      <workItem from="1607276533380" duration="3009000" />
     </task>
-    <task id="LOCAL-00001" summary="Deleted 'Tag' and added enum 'Rent status'">
-      <created>1607280662395</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1607280662395</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Deleted 'Tag' and added enum 'Rent status'">
-      <created>1607280768955</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1607280768955</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,7 +198,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="lab7" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -227,8 +213,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Deleted 'Tag' and added enum 'Rent status'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deleted 'Tag' and added enum 'Rent status'" />
   </component>
   <component name="WindowStateProjectService">
     <state x="63" y="225" key="#SQL_Dialects" timestamp="1606723380425">
@@ -243,26 +227,22 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="463" y="138" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1606735423859" />
-    <state width="1323" height="56" key="GridCell.Tab.0.bottom" timestamp="1607284325228">
+    <state width="1323" height="112" key="GridCell.Tab.0.bottom" timestamp="1607280163740">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="56" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1607284325228" />
-    <state width="1323" height="56" key="GridCell.Tab.0.center" timestamp="1607284325228">
+    <state width="1323" height="112" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1607280163740" />
+    <state width="1323" height="112" key="GridCell.Tab.0.center" timestamp="1607280163740">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="56" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1607284325228" />
-    <state width="1323" height="56" key="GridCell.Tab.0.left" timestamp="1607284325228">
+    <state width="1323" height="112" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1607280163740" />
+    <state width="1323" height="112" key="GridCell.Tab.0.left" timestamp="1607280163740">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="56" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1607284325228" />
-    <state width="1323" height="56" key="GridCell.Tab.0.right" timestamp="1607284325228">
+    <state width="1323" height="112" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1607280163740" />
+    <state width="1323" height="112" key="GridCell.Tab.0.right" timestamp="1607280163740">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="56" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1607284325228" />
-    <state x="275" y="116" key="Vcs.Push.Dialog.v2" timestamp="1607280805973">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="275" y="116" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1607280805973" />
+    <state width="1323" height="112" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1607280163740" />
     <state x="577" y="166" width="316" height="436" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1607277849888">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -274,7 +254,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Flask_Project$models.coverage" NAME="models Coverage Results" MODIFIED="1606914726541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Flask_Project$create_models.coverage" NAME="create_models Coverage Results" MODIFIED="1607280552877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Flask_Project$create_models.coverage" NAME="create_models Coverage Results" MODIFIED="1607277644462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Flask_Project$11458a9fe4de_create_account_table.coverage" NAME="11458a9fe4de_create_account_table Coverage Results" MODIFIED="1606736225053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/alembic/versions" />
   </component>
 </project>
