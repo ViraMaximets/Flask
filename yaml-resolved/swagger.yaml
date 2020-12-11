@@ -1,25 +1,23 @@
 openapi: 3.0.0
 info:
+  title: AutoRoll
   description: |
     This is a description of my AutoRoll servise, which allows you rent a car.
-  version: "1.0.0"
-  title: AutoRoll
-  termsOfService: 'http://swagger.io/terms/'
+  termsOfService: http://swagger.io/terms/
   contact:
-    email: viranilla7@gmail.com
     name: Vira
+    email: viranilla7@gmail.com
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/AutoRoll/AutoRolll/1.0.0
-  - url: http://localhost:5000/
-  - url: https://virtserver.swaggerhub.com/ViraMaximets/AutoRoll/1.0.0
-    description: SwaggerHub API Auto Mocking
+- url: https://virtserver.swaggerhub.com/AutoRoll/AutoRolll/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:5000/
+- url: https://virtserver.swaggerhub.com/ViraMaximets/AutoRoll/1.0.0
+  description: SwaggerHub API Auto Mocking
 tags:
-
 - name: car
   description: Everything about our cars
 - name: rent
@@ -28,6 +26,8 @@ tags:
   description: Operations of user
 - name: admin
   description: Operations of admin
+- name: brand
+  description: Access to brands
 paths:
   /car:
     get:
@@ -47,34 +47,36 @@ paths:
                   format: int32
     post:
       tags:
-        - car
+      - car
       summary: Add a new car to the store
       operationId: addCar
-      responses:
-        '405':
-          description: Invalid input
-      security:
-        - carstore_auth:
-            - 'write:cars'
-            - 'read:cars'
       requestBody:
         $ref: '#/components/requestBodies/Car'
-  '/car/{carId}':
+      responses:
+        "405":
+          description: Invalid input
+      security:
+      - carstore_auth:
+        - write:cars
+        - read:cars
+  /car/{carId}:
     get:
       tags:
-        - car
+      - car
       summary: Find car by ID
       description: Returns a single car
       operationId: getCarById
       parameters:
-        - name: carId
-          in: path
-          description: ID of car to return
-          required: true
-          schema:
-            type: integer
+      - name: carId
+        in: path
+        description: ID of car to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -83,104 +85,99 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Car'
-        '400':
+        "400":
           description: Invalid ID supplied
-        '404':
+        "404":
           description: car not found
     put:
       tags:
-        - car
+      - car
       summary: Update an existing car
       operationId: updateCar
       parameters:
-        - name: carId
-          in: path
-          description: ID of car to return
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Car'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Car'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: car not found
-        '405':
-          description: Invalid input
-      security:
-        - carstore_auth:
-            - 'write:cars'
-            - 'read:cars'
+      - name: carId
+        in: path
+        description: ID of car to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              type: object
-              properties:
-                model:
-                  description: Updated model of the car
-                  type: string
-                description:
-                  description: Updated description of the car
-                  type: string
-                status:
-                  description: Updated status of the car
-                  type: integer
-    delete:
-      tags:
-        - car
-      summary: Deletes a car
-      operationId: deleteCar
-      parameters:
-        - name: carId
-          in: path
-          description: ID of car to return
-          required: true
-          schema:
-            type: integer
+              $ref: '#/components/schemas/body'
       responses:
-        '400':
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "400":
           description: Invalid ID supplied
-        '404':
-          description: Car not found
+        "404":
+          description: car not found
+        "405":
+          description: Invalid input
       security:
-
       - carstore_auth:
         - write:cars
         - read:cars
-
+    delete:
+      tags:
+      - car
+      summary: Deletes a car
+      operationId: deleteCar
+      parameters:
+      - name: carId
+        in: path
+        description: ID of car to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Car not found
+      security:
+      - carstore_auth:
+        - write:cars
+        - read:cars
   /rent/{userId}/{carId}:
-    post:
+    get:
       tags:
       - rent
       summary: Find rent order by ID
       description: For valid response try integer IDs with value >= 1 and <= 10.\
         \ Other values will generated exceptions
       operationId: getOrderById
-
       parameters:
-        - name: carId
-          in: path
-          description: Id of car thats u want to rent
-          required: true
-          schema:
-            type: integer
-        - name: userId
-          in: path
-          description: Id of car thats u want to rent
-          required: true
-          schema:
-            type: integer
+      - name: carId
+        in: path
+        description: Id of car thats u want to rent
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: userId
+        in: path
+        description: Id of car thats u want to rent
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -189,8 +186,10 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Rent'
-        '400':
-          description: Invalid Order
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Order not found
       security:
       - carstore_auth:
         - write:cars
@@ -218,36 +217,14 @@ paths:
         schema:
           type: integer
       requestBody:
+        description: order placed for purchasing the car
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Rent'
-        description: order placed for purchasing the car
         required: true
-        
-    get:
-      tags:
-        - store
-      summary: Find rent order by ID
-      description: >-
-        For valid response try integer IDs with value >= 1 and <= 10.\ \ Other
-        values will generated exceptions
-      operationId: getOrderById
-      parameters:
-        - name: carId
-          in: path
-          description: Id of car thats u want to rent
-          required: true
-          schema:
-            type: integer
-        - name: userId
-          in: path
-          description: Id of car thats u want to rent
-          required: true
-          schema:
-            type: integer
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -256,94 +233,101 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Rent'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Order not found
+        "400":
+          description: Invalid Order
       security:
-        - carstore_auth:
-            - 'write:cars'
-            - 'read:cars'
-            
+      - carstore_auth:
+        - write:cars
+        - read:cars
     delete:
       tags:
       - rent
       summary: Delete purchase order by ID
-      description: >-
-        For valid response try integer IDs with positive integer value.\ \
-        Negative or non-integer values will generate API errors
+      description: For valid response try integer IDs with positive integer value.\
+        \ Negative or non-integer values will generate API errors
       operationId: deleteOrder
       parameters:
-        - name: carId
-          in: path
-          description: Id of car thats u want to rent
-          required: true
-          schema:
-            type: integer
-        - name: userId
-          in: path
-          description: Id of car thats u want to rent
-          required: true
-          schema:
-            type: integer
+      - name: carId
+        in: path
+        description: Id of car thats u want to rent
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: userId
+        in: path
+        description: Id of car thats u want to rent
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '400':
+        "400":
           description: Invalid ID supplied
-        '404':
+        "404":
           description: Order not found
       security:
-        - carstore_auth:
-            - 'write:cars'
-            - 'read:cars'
+      - carstore_auth:
+        - write:cars
+        - read:cars
   /user:
     post:
       tags:
-        - user
+      - user
       summary: Create user
       description: This can only be done by the logged in user.
       operationId: createUser
-      responses:
-        default:
-          description: successful operation
       requestBody:
+        description: Created user object
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-        description: Created user object
         required: true
-  
+      responses:
+        default:
+          description: successful operation
   /user/login:
     post:
       tags:
-        - user
+      - user
       summary: Logs user into the system
       operationId: loginUser
       parameters:
-        - name: username
-          in: query
-          description: The user name for login
-          required: true
-          schema:
-            type: string
-            example: Vikky
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: true
-          schema:
-            type: string
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Vikky
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
-        '200':
+        "200":
           description: successful operation
           headers:
             X-Rate-Limit:
               description: calls per hour allowed by the user
+              style: simple
+              explode: false
               schema:
                 type: integer
                 format: int32
             X-Expires-After:
               description: date in UTC when token expires
+              style: simple
+              explode: false
               schema:
                 type: string
                 format: date-time
@@ -354,38 +338,40 @@ paths:
             application/xml:
               schema:
                 type: string
-        '400':
+        "400":
           description: Invalid username/password supplied
   /user/logout:
     get:
       tags:
-        - user
+      - user
       summary: Logs out current logged in user session
       operationId: logoutUser
       responses:
         default:
           description: successful operation
       security:
-        - user_auth:
-            - 'write:user'
-            - 'read:user'
-  '/user/{userId}':
+      - user_auth:
+        - write:user
+        - read:user
+  /user/{userId}:
     get:
       tags:
-        - user
+      - user
       summary: Get user by user name
       operationId: getUser
       parameters:
-        - name: userId
-          in: path
-          description: Id of user you want to get
-          required: true
-          schema:
-            type: integer
+      - name: userId
+        in: path
+        description: Id of user you want to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '400':
+        "400":
           description: Invalid ID supplied
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -394,110 +380,135 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/User'
-        '404':
+        "404":
           description: User not found
     put:
       tags:
-        - user
+      - user
       summary: Updated user
       description: This can only be done by the logged in user.
       operationId: updateUser
       parameters:
-        - name: userId
-          in: path
-          description: Id of user you want to get
-          required: true
-          schema:
-            type: integer
-      responses:
-        '400':
-          description: Invalid user supplied
-        '404':
-          description: User not found
+      - name: userId
+        in: path
+        description: Id of user you want to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       requestBody:
+        description: Updated user object
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-        description: Updated user object
         required: true
+      responses:
+        "400":
+          description: Invalid user supplied
+        "404":
+          description: User not found
       security:
-        - user_auth:
-            - 'write:user'
-            - 'read:user'
+      - user_auth:
+        - write:user
+        - read:user
     delete:
       tags:
-        - user
+      - user
       summary: Delete user
       description: This can only be done by the logged in user.
       operationId: deleteUser
       parameters:
-        - name: userId
-          in: path
-          description: Id of user you want to get
-          required: true
-          schema:
-            type: integer
+      - name: userId
+        in: path
+        description: Id of user you want to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '400':
+        "400":
           description: Invalid username supplied
-        '404':
+        "404":
           description: User not found
       security:
-        - user_auth:
-            - 'write:user'
-            - 'read:user'
-
-  /admin:
+      - user_auth:
+        - write:user
+        - read:user
+  /brand:
     post:
       tags:
-        - admin
-      summary: Create admin
-      description: This can only be done by the logged in admin.
-      operationId: createAdmin
+      - brand
+      summary: Create brand
+      operationId: createBrand
+      requestBody:
+        description: Created brand object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brand'
+        required: true
       responses:
         default:
           description: successful operation
+  /admin:
+    post:
+      tags:
+      - admin
+      summary: Create admin
+      description: This can only be done by the logged in admin.
+      operationId: createAdmin
       requestBody:
+        description: Created admin object
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Admin'
-        description: Created admin object
         required: true
-  
- 
+      responses:
+        default:
+          description: successful operation
   /admin/login:
     post:
       tags:
-        - admin
+      - admin
       summary: Logs admin into the system
       operationId: loginAdmin
       parameters:
-        - name: username
-          in: query
-          description: The admin name for login
-          required: true
-          schema:
-            type: string
-            example: Vikky
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: true
-          schema:
-            type: string
+      - name: username
+        in: query
+        description: The admin name for login
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Vikky
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
-        '200':
+        "200":
           description: successful operation
           headers:
             X-Rate-Limit:
               description: calls per hour allowed by the admin
+              style: simple
+              explode: false
               schema:
                 type: integer
                 format: int32
             X-Expires-After:
               description: date in UTC when token expires
+              style: simple
+              explode: false
               schema:
                 type: string
                 format: date-time
@@ -508,37 +519,38 @@ paths:
             application/xml:
               schema:
                 type: string
-        '400':
+        "400":
           description: Invalid username/password supplied
-  
   /admin/logout:
     get:
       tags:
-        - admin
+      - admin
       summary: Logs out current logged in admin session
       operationId: logoutAdmin
       responses:
         default:
           description: successful operation
       security:
-        - user_auth:
-            - 'write:user'
-            - 'read:user'
-  '/admin/{adminId}':
+      - user_auth:
+        - write:user
+        - read:user
+  /admin/{adminId}:
     get:
       tags:
-        - admin
+      - admin
       summary: Get admin by username
       operationId: getAdminByName
       parameters:
-        - name: adminId
-          in: path
-          description: Id of user you want to get
-          required: true
-          schema:
-            type: integer
+      - name: adminId
+        in: path
+        description: Id of user you want to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
@@ -547,39 +559,41 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Admin'
-        '400':
+        "400":
           description: Invalid username supplied
-        '404':
+        "404":
           description: Admin not found
     put:
       tags:
-        - admin
+      - admin
       summary: Updated admin
       description: This can only be done by the logged in admin.
       operationId: updateAdmin
       parameters:
-        - name: adminId
-          in: path
-          description: Id of user you want to get
-          required: true
-          schema:
-            type: integer
-      responses:
-        '400':
-          description: Invalid admin supplied
-        '404':
-          description: admin not found
+      - name: adminId
+        in: path
+        description: Id of user you want to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       requestBody:
+        description: Updated admin object
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Admin'
-        description: Updated admin object
         required: true
+      responses:
+        "400":
+          description: Invalid admin supplied
+        "404":
+          description: admin not found
       security:
-        - user_auth:
-            - 'write:user'
-            - 'read:user'
+      - user_auth:
+        - write:user
+        - read:user
     delete:
       tags:
       - admin
@@ -587,32 +601,31 @@ paths:
       description: This can only be done by the logged in admin.
       operationId: deleteAdmin
       parameters:
-        - name: adminId
-          in: path
-          description: Id of user you want to get
-          required: true
-          schema:
-            type: integer
+      - name: adminId
+        in: path
+        description: Id of user you want to get
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '400':
+        "400":
           description: Invalid username supplied
-        '404':
+        "404":
           description: Admin not found
       security:
-        - user_auth:
-            - 'write:user'
-            - 'read:user'
-          
-
-
+      - user_auth:
+        - write:user
+        - read:user
 components:
   schemas:
     Rent:
-      type: object
       required:
-        - rentId
-        - ownerId
-        - carId
+      - carId
+      - ownerId
+      - rentId
+      type: object
       properties:
         rentId:
           type: integer
@@ -633,16 +646,16 @@ components:
           type: string
           description: Order Status
           enum:
-            - asked
-            - approved
-            - denied
+          - asked
+          - approved
+          - denied
       xml:
         name: Order
     Brand:
-      type: object
       required:
-        - brandId
-        - name
+      - brandId
+      - name
+      type: object
       properties:
         brandId:
           type: integer
@@ -651,14 +664,13 @@ components:
           example: Audi
       xml:
         name: Category
-
     Admin:
-      type: object
       required:
-        - adminId
-        - username
-        - email
-        - password
+      - adminId
+      - email
+      - password
+      - username
+      type: object
       properties:
         adminId:
           type: integer
@@ -670,14 +682,13 @@ components:
           type: string
       xml:
         name: User
-
     User:
-      type: object
       required:
-        - userId
-        - username
-        - email
-        - password
+      - email
+      - password
+      - userId
+      - username
+      type: object
       properties:
         userId:
           type: integer
@@ -690,11 +701,11 @@ components:
       xml:
         name: User
     Car:
-      type: object
       required:
-        - id
-        - brand
-        - model
+      - brand
+      - id
+      - model
+      type: object
       properties:
         carId:
           type: integer
@@ -723,9 +734,21 @@ components:
           type: string
         message:
           type: string
-          
+    body:
+      type: object
+      properties:
+        model:
+          type: string
+          description: Updated model of the car
+        description:
+          type: string
+          description: Updated description of the car
+        status:
+          type: integer
+          description: Updated status of the car
   requestBodies:
     Car:
+      description: Car object that needs to be added to the store
       content:
         application/json:
           schema:
@@ -733,24 +756,21 @@ components:
         application/xml:
           schema:
             $ref: '#/components/schemas/Car'
-      description: Car object that needs to be added to the store
       required: true
-    
   securitySchemes:
     user_auth:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: 'http://localhost:5144/oauth/dialog'
+          authorizationUrl: http://localhost:5144/oauth/dialog
           scopes:
-            'write:user': modify your account
-            'read:user': read your account
-
+            write:user: modify your account
+            read:user: read your account
     carstore_auth:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: 'http://localhost:5144/oauth/dialog'
+          authorizationUrl: http://localhost:5144/oauth/dialog
           scopes:
-            'write:cars': modify cars in your account
-            'read:cars': read your cars
+            write:cars: modify cars in your account
+            read:cars: read your cars
