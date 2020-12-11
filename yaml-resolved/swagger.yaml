@@ -20,7 +20,7 @@ servers:
 tags:
 - name: car
   description: Everything about our cars
-- name: store
+- name: rent
   description: Access to car orders
 - name: user
   description: Operations of user
@@ -28,6 +28,21 @@ tags:
   description: Operations of admin
 paths:
   /car:
+    get:
+      tags:
+      - car
+      summary: Returns all existing cars
+      operationId: getCars
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
     post:
       tags:
       - car
@@ -134,27 +149,13 @@ paths:
       - carstore_auth:
         - write:cars
         - read:cars
-  /store/inventory:
-    get:
-      tags:
-      - store
-      summary: Returns car inventory
-      operationId: getInventory
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
   /rent/{userId}/{carId}:
     get:
       tags:
-      - store
+      - rent
       summary: Find rent order by ID
+      description: For valid response try integer IDs with value >= 1 and <= 10.\
+        \ Other values will generated exceptions
       operationId: getOrderById
       parameters:
       - name: carId
@@ -193,7 +194,7 @@ paths:
         - read:cars
     post:
       tags:
-      - store
+      - rent
       summary: Place an order for a car
       operationId: placeOrder
       parameters:
@@ -238,7 +239,7 @@ paths:
         - read:cars
     delete:
       tags:
-      - store
+      - rent
       summary: Delete purchase order by ID
       description: For valid response try integer IDs with positive integer value.\
         \ Negative or non-integer values will generate API errors
@@ -578,7 +579,7 @@ paths:
     delete:
       tags:
       - admin
-      summary: Delete user
+      summary: Delete admin
       description: This can only be done by the logged in admin.
       operationId: deleteAdmin
       parameters:
