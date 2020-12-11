@@ -19,16 +19,32 @@ servers:
   - url: https://virtserver.swaggerhub.com/ViraMaximets/AutoRoll/1.0.0
     description: SwaggerHub API Auto Mocking
 tags:
-  - name: car
-    description: Everything about our cars
-  - name: store
-    description: Access to car orders
-  - name: user
-    description: Operations of user
-  - name: admin
-    description: Operations of admin
+
+- name: car
+  description: Everything about our cars
+- name: rent
+  description: Access to car orders
+- name: user
+  description: Operations of user
+- name: admin
+  description: Operations of admin
 paths:
-  '/car':
+  /car:
+    get:
+      tags:
+      - car
+      summary: Returns all existing cars
+      operationId: getCars
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
     post:
       tags:
         - car
@@ -136,33 +152,20 @@ paths:
         '404':
           description: Car not found
       security:
-        - carstore_auth:
-            - 'write:cars'
-            - 'read:cars'
 
-  /store/inventory:
-    get:
-      tags:
-        - store
-      summary: Returns car inventory
-      operationId: getInventory
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
-      
+      - carstore_auth:
+        - write:cars
+        - read:cars
+
   /rent/{userId}/{carId}:
     post:
       tags:
-        - store
-      summary: Place an order for a car
-      operationId: placeOrder
+      - rent
+      summary: Find rent order by ID
+      description: For valid response try integer IDs with value >= 1 and <= 10.\
+        \ Other values will generated exceptions
+      operationId: getOrderById
+
       parameters:
         - name: carId
           in: path
@@ -189,9 +192,31 @@ paths:
         '400':
           description: Invalid Order
       security:
-        - carstore_auth:
-            - 'write:cars'
-            - 'read:cars'
+      - carstore_auth:
+        - write:cars
+        - read:cars
+    post:
+      tags:
+      - rent
+      summary: Place an order for a car
+      operationId: placeOrder
+      parameters:
+      - name: carId
+        in: path
+        description: Id of car thats u want to rent
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: userId
+        in: path
+        description: Id of car thats u want to rent
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       requestBody:
         content:
           application/json:
@@ -242,7 +267,7 @@ paths:
             
     delete:
       tags:
-        - store
+      - rent
       summary: Delete purchase order by ID
       description: >-
         For valid response try integer IDs with positive integer value.\ \
@@ -441,7 +466,7 @@ paths:
         description: Created admin object
         required: true
   
-  
+ 
   /admin/login:
     post:
       tags:
@@ -557,8 +582,8 @@ paths:
             - 'read:user'
     delete:
       tags:
-        - admin
-      summary: Delete user
+      - admin
+      summary: Delete admin
       description: This can only be done by the logged in admin.
       operationId: deleteAdmin
       parameters:
