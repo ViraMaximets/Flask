@@ -273,6 +273,21 @@ paths:
         - write:cars
         - read:cars
   /user:
+    get:
+      tags:
+      - user
+      summary: Returns all existing users
+      operationId: getuser
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
     post:
       tags:
       - user
@@ -469,6 +484,21 @@ paths:
         default:
           description: successful operation
   /admin:
+    get:
+      tags:
+      - admin
+      summary: Returns all existing admins
+      operationId: getadmins
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
     post:
       tags:
       - admin
