@@ -438,6 +438,21 @@ paths:
         - write:user
         - read:user
   /brand:
+    get:
+      tags:
+      - brand
+      summary: Returns all existing brands
+      operationId: getBrands
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
     post:
       tags:
       - brand
@@ -624,16 +639,12 @@ components:
       required:
       - carId
       - ownerId
-      - rentId
       type: object
       properties:
-        rentId:
+        owner_id:
           type: integer
           format: int64
-        ownerId:
-          type: integer
-          format: int64
-        carId:
+        car_id:
           type: integer
           format: int64
         startTime:
@@ -646,19 +657,16 @@ components:
           type: string
           description: Order Status
           enum:
-          - asked
-          - approved
-          - denied
+          - REQUEST
+          - APPROVED
+          - DENIED
       xml:
         name: Order
     Brand:
       required:
-      - brandId
       - name
       type: object
       properties:
-        brandId:
-          type: integer
         name:
           type: string
           example: Audi
@@ -666,14 +674,11 @@ components:
         name: Category
     Admin:
       required:
-      - adminId
       - email
       - password
       - username
       type: object
       properties:
-        adminId:
-          type: integer
         username:
           type: string
         email:
@@ -686,12 +691,9 @@ components:
       required:
       - email
       - password
-      - userId
       - username
       type: object
       properties:
-        userId:
-          type: integer
         username:
           type: string
         email:
@@ -703,14 +705,11 @@ components:
     Car:
       required:
       - brand
-      - id
       - model
       type: object
       properties:
-        carId:
+        brand_id:
           type: integer
-        brand:
-          $ref: '#/components/schemas/Brand'
         model:
           type: string
           example: A8
@@ -725,15 +724,6 @@ components:
             type: string
       xml:
         name: Car
-    ApiResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        type:
-          type: string
-        message:
-          type: string
     body:
       type: object
       properties:
