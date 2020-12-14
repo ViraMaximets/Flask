@@ -1,4 +1,4 @@
-from main import db, Base
+from __init__ import *
 import enum
 
 
@@ -9,6 +9,11 @@ class Admin(Base):
     username = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
 
 
 class Brand(Base):
@@ -27,9 +32,7 @@ class Car(Base):
     brand = db.relationship(Brand, backref=db.backref('brand'))
 
     model = db.Column(db.String(50), nullable=False)
-
     description = db.Column(db.String(200))
-    photoUrl = db.Column(db.String(200))
 
 
 class User(Base):
@@ -42,9 +45,9 @@ class User(Base):
 
 
 class RentStatus(enum.Enum):
-    REQUEST = 1
-    APPROVED = 2
-    DENIED = 3
+    REQUEST = 'REQUEST'
+    APPROVED = 'APPROVED'
+    DENIED = 'DENIED'
 
 
 class Rent(Base):
@@ -58,11 +61,9 @@ class Rent(Base):
     car_id = db.Column(db.Integer, db.ForeignKey(Car.carId))
     car = db.relationship(Car, backref=db.backref('car'))
 
-    # startT = db.Column(db.Date, nullable=False)
-    # endT = db.Column(db.Date, nullable=False)
-    startT = db.Column(db.String(20), nullable=False)
-    endT = db.Column(db.String(20), nullable=False)
+    startT = db.Column(db.Date, nullable=False)
+    endT = db.Column(db.Date, nullable=False)
 
-    status = db.Column(db.Integer, default=RentStatus.REQUEST.value)
+    status = db.Column(db.String(10), default=RentStatus.REQUEST.value)
 
 
