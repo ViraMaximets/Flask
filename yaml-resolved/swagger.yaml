@@ -12,11 +12,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/AutoRoll/AutoRolll/1.0.0
-  description: SwaggerHub API Auto Mocking
 - url: http://localhost:5000/
-- url: https://virtserver.swaggerhub.com/ViraMaximets/AutoRoll/1.0.0
-  description: SwaggerHub API Auto Mocking
 tags:
 - name: car
   description: Everything about our cars
@@ -745,13 +741,6 @@ components:
           example: A8
         description:
           type: string
-        photoUrls:
-          type: array
-          xml:
-            name: photoUrl
-            wrapped: true
-          items:
-            type: string
       xml:
         name: Car
     body:
