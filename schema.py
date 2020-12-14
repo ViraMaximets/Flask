@@ -25,12 +25,11 @@ class CarSchema(Schema):
     brand_id = fields.Int(required=True)
     model = fields.Str(required=True)
     description = fields.Str()
-    photoUrl = fields.Url()
 
 
 class RentSchema(Schema):
     rentId = fields.Int(dump_only=True)
     owner_id = fields.Nested(UserSchema(exclude=("email", "password")), required=True)
-    car_id = fields.Nested(CarSchema(exclude=("description", "photoUrl")), required=True)
+    car_id = fields.Nested(CarSchema(exclude=("model", "description")), required=True)
     startT = fields.Date(required=True)
     endT = fields.Date(required=True)

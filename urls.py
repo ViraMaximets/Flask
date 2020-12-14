@@ -1,5 +1,6 @@
 from flask import jsonify, request
 from sqlalchemy.orm.exc import ObjectDeletedError
+from sqlalchemy.sql.elements import Null
 
 from models import *
 from schema import *
@@ -38,6 +39,7 @@ def create_user():
 
     return jsonify({'response': "Success"}, 200)
 
+
 @app.route("/user", methods=['GET'])
 def get_users():
     try:
@@ -54,6 +56,51 @@ def get_users():
     return jsonify({'response': dump_data}, 200)
 
 
+@app.route("/user/<int:id>", methods=['GET'])
+def get_user_by_id(id):
+    if db.session.query(User.userId).filter_by(userId=id).scalar() is None:
+        return jsonify({'response': "Invalid ID found"}, 404)
+
+    try:
+        result = db.session.query(User).filter(User.userId == id).order_by(User.userId).all()
+        schema = UserSchema(many=True)
+    except Exception:
+        return jsonify({'response': "Cannot GET info"}, 404)
+
+    try:
+        dump_data = schema.dump(result)
+    except Exception:
+        return jsonify({'response': "Cannot DISPLAY info"}, 405)
+
+    return jsonify({'response': dump_data}, 200)
+
+
+@app.route("/user/<int:id>", methods=['PUT'])
+def update_user(id):
+
+    if db.session.query(User.userId).filter_by(userId=id).scalar() is None:
+        return jsonify({'response': "Invalid ID found"}, 404)
+
+    result = request.get_json()
+    if not result:
+        return {"response": "No input data provided"}, 400
+
+    try:
+        if "username" in result:
+            db.session.query(User).filter(User.userId == id).update(dict(username=result["username"]))
+        if "email" in result:
+            db.session.query(User).filter(User.userId == id).update(dict(email=result["email"]))
+        if "password" in result:
+            db.session.query(User).filter(User.userId == id).update(dict(password=result["password"]))
+    except Exception:
+        return jsonify({'response': "Updating failed"}, 403)
+
+    try:
+        db.session.commit()
+    except Exception:
+        return jsonify({'response': "Database refused a request"}, 402)
+
+    return jsonify({'response': "Success"}, 200)
 ############################################# admin ##############################################
 
 @app.route("/admin", methods=['POST'])
@@ -63,7 +110,7 @@ def create_admin():
         return {"response": "No input data provided"}, 400
 
     try:
-        result = UserSchema().load(data)
+        result = AdminSchema().load(data)
     except Exception:
         return jsonify({'response': "Invalid input"}, 403)
 
@@ -93,6 +140,55 @@ def get_admins():
 
     return jsonify({'response': dump_data}, 200)
 
+
+@app.route("/admin/<int:id>", methods=['GET'])
+def get_admin_by_id(id):
+
+    if db.session.query(Admin.adminId).filter_by(adminId=id).scalar() is None:
+        return jsonify({'response': "Invalid ID found"}, 404)
+
+    try:
+        result = db.session.query(Admin).filter(Admin.adminId == id).order_by(Admin.adminId).all()
+        schema = AdminSchema(many=True)
+    except Exception:
+        return jsonify({'response': "Cannot GET info"}, 404)
+
+    try:
+        dump_data = schema.dump(result)
+    except Exception:
+        return jsonify({'response': "Cannot DISPLAY info"}, 405)
+
+    return jsonify({'response': dump_data}, 200)
+
+
+@app.route("/admin/<int:id>", methods=['PUT'])
+def update_admin(id):
+
+    if db.session.query(Admin.adminId).filter_by(adminId=id).scalar() is None:
+        return jsonify({'response': "Invalid ID found"}, 404)
+
+    result = request.get_json()
+    if not result:
+        return {"response": "No input data provided"}, 400
+
+    try:
+        if "username" in result:
+            db.session.query(Admin).filter(Admin.adminId == id).update(dict(username=result["username"]))
+        if "email" in result:
+            db.session.query(Admin).filter(Admin.adminId == id).update(dict(email=result["email"]))
+        if "password" in result:
+            db.session.query(Admin).filter(Admin.adminId == id).update(dict(password=result["password"]))
+    except Exception:
+        return jsonify({'response': "Updating failed"}, 403)
+
+    try:
+        db.session.commit()
+    except Exception:
+        return jsonify({'response': "Database refused a request"}, 402)
+
+    return jsonify({'response': "Success"}, 200)
+
+
 ############################################# brand ##############################################
 
 @app.route("/brand", methods=['POST'])
@@ -106,7 +202,7 @@ def create_brand():
     except Exception:
         return jsonify({'response': "Invalid input"}, 403)
 
-    brand = Brand(brandId=result["brand_id"], name=result["name"])
+    brand = Brand(name=result["name"])
 
     try:
         db.session.add(brand)
@@ -132,6 +228,7 @@ def get_brands():
 
     return jsonify({'response': dump_data}, 200)
 
+
 ############################################# car ##############################################
 
 @app.route("/car", methods=['POST'])
@@ -145,13 +242,10 @@ def create_car():
     except Exception:
         return jsonify({'response': "Invalid input"}, 403)
 
+    if db.session.query(Brand.brandId).filter_by(brandId=result["brand_id"]).scalar() is None:
+        return jsonify({'response': "Invalid ID found"}, 404)
 
-    no_exists = db.session.query(Brand.brandId).filter_by(brandId=result["brand_id"]).scalar() is None
-    if (no_exists==True):
-        return jsonify({'response': "Invalid brand_id found"}, 404)
-
-    car = Car(brand_id=result["brand_id"], model=result["model"], description=result["description"],
-              photoUrl=result["photoUrl"])
+    car = Car(brand_id=result["brand_id"], model=result["model"], description=result["description"])
 
     try:
         db.session.add(car)
@@ -172,6 +266,25 @@ def get_cars():
 
     try:
         dump_data = car_schema.dump(cars)
+    except Exception:
+        return jsonify({'response': "Cannot DISPLAY info"}, 405)
+
+    return jsonify({'response': dump_data}, 200)
+
+
+@app.route("/car/<int:id>", methods=['GET'])
+def get_car_by_id(id):
+    if db.session.query(Car.carId).filter_by(carId=id).scalar() is None:
+        return jsonify({'response': "Invalid ID found"}, 404)
+
+    try:
+        result = db.session.query(Car).filter(Car.carId == id).order_by(Car.carId).all()
+        schema = CarSchema(many=True)
+    except Exception:
+        return jsonify({'response': "Cannot GET info"}, 404)
+
+    try:
+        dump_data = schema.dump(result)
     except Exception:
         return jsonify({'response': "Cannot DISPLAY info"}, 405)
 

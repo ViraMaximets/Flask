@@ -10,6 +10,11 @@ class Admin(Base):
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(40), nullable=False)
 
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
+
 
 class Brand(Base):
     __tablename__ = 'brand'
@@ -27,9 +32,7 @@ class Car(Base):
     brand = db.relationship(Brand, backref=db.backref('brand'))
 
     model = db.Column(db.String(50), nullable=False)
-
     description = db.Column(db.String(200))
-    photoUrl = db.Column(db.String(200))
 
 
 class User(Base):

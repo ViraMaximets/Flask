@@ -30,7 +30,6 @@ CREATE TABLE car (
     model VARCHAR(50) NOT NULL,
 
     description  VARCHAR(200),
-    photoUrl VARCHAR(200),
 
     PRIMARY KEY (carId),
 
