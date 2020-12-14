@@ -99,11 +99,6 @@ paths:
         explode: false
         schema:
           type: integer
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/body'
       responses:
         "200":
           description: successful operation
@@ -726,18 +721,6 @@ components:
           type: string
       xml:
         name: Car
-    body:
-      type: object
-      properties:
-        model:
-          type: string
-          description: Updated model of the car
-        description:
-          type: string
-          description: Updated description of the car
-        status:
-          type: integer
-          description: Updated status of the car
   requestBodies:
     Car:
       description: Car object that needs to be added to the store
