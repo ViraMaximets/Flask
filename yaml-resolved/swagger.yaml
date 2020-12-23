@@ -46,6 +46,15 @@ paths:
       - car
       summary: Add a new car to the store
       operationId: addCar
+      parameters:
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       requestBody:
         $ref: '#/components/requestBodies/Car'
       responses:
@@ -55,7 +64,7 @@ paths:
       - user_auth:
         - write:user
         - read:user
-  /car/{carId}:
+  /car/{carId}/:
     get:
       tags:
       - car
@@ -99,6 +108,14 @@ paths:
         explode: false
         schema:
           type: integer
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -133,6 +150,14 @@ paths:
         explode: false
         schema:
           type: integer
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "400":
           description: Invalid ID supplied
@@ -143,6 +168,38 @@ paths:
         - write:user
         - read:user
   /rent:
+    get:
+      tags:
+      - rent
+      summary: Find rent orders of user
+      operationId: getOrderById
+      parameters:
+      - name: token
+        in: query
+        description: The user token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rent'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rent'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Order not found
+      security:
+      - user_auth:
+        - write:user
+        - read:user
     post:
       tags:
       - rent
@@ -171,46 +228,11 @@ paths:
       - user_auth:
         - write:user
         - read:user
-  /rent/{userId}:
-    get:
-      tags:
-      - rent
-      summary: Find rent order by ID
-      description: For valid response try integer IDs with value >= 1 and <= 10.\
-        \ Other values will generated exceptions
-      operationId: getOrderById
-      parameters:
-      - name: userId
-        in: path
-        description: Id of user to show his rents
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Rent'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Rent'
-        "400":
-          description: Invalid ID supplied
-        "404":
-          description: Order not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
-  /rent/{rentId}:
+  /rent/{rentId}/:
     delete:
       tags:
       - rent
-      summary: Delete purchase order by ID
+      summary: Delete rent by rentID
       operationId: deleteOrder
       parameters:
       - name: rentId
@@ -221,6 +243,14 @@ paths:
         explode: false
         schema:
           type: integer
+      - name: token
+        in: query
+        description: The user token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "400":
           description: Invalid ID supplied
@@ -246,6 +276,37 @@ paths:
                 additionalProperties:
                   type: integer
                   format: int32
+    put:
+      tags:
+      - user
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+      - name: token
+        in: query
+        description: The user token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "400":
+          description: Invalid user supplied
+        "404":
+          description: User not found
+      security:
+      - user_auth:
+        - write:user
+        - read:user
     post:
       tags:
       - user
@@ -262,6 +323,30 @@ paths:
       responses:
         default:
           description: successful operation
+    delete:
+      tags:
+      - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      parameters:
+      - name: token
+        in: query
+        description: The user token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+      security:
+      - user_auth:
+        - write:user
+        - read:user
   /user/login:
     post:
       tags:
@@ -277,7 +362,6 @@ paths:
         explode: true
         schema:
           type: string
-          example: Vikky
       - name: password
         in: query
         description: The password for login in clear text
@@ -289,21 +373,6 @@ paths:
       responses:
         "200":
           description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              style: simple
-              explode: false
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              style: simple
-              explode: false
-              schema:
-                type: string
-                format: date-time
           content:
             application/json:
               schema:
@@ -319,6 +388,15 @@ paths:
       - user
       summary: Logs out current logged in user session
       operationId: logoutUser
+      parameters:
+      - name: token
+        in: query
+        description: The user token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         default:
           description: successful operation
@@ -355,61 +433,6 @@ paths:
                 $ref: '#/components/schemas/User'
         "404":
           description: User not found
-    put:
-      tags:
-      - user
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-      - name: userId
-        in: path
-        description: Id of user you want to get
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-      requestBody:
-        description: Updated user object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        "400":
-          description: Invalid user supplied
-        "404":
-          description: User not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
-    delete:
-      tags:
-      - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      parameters:
-      - name: userId
-        in: path
-        description: Id of user you want to get
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-      responses:
-        "400":
-          description: Invalid username supplied
-        "404":
-          description: User not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
   /brand:
     get:
       tags:
@@ -431,6 +454,15 @@ paths:
       - brand
       summary: Create brand
       operationId: createBrand
+      parameters:
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       requestBody:
         description: Created brand object
         content:
@@ -441,6 +473,10 @@ paths:
       responses:
         default:
           description: successful operation
+      security:
+      - user_auth:
+        - write:user
+        - read:user
   /brand/{brandId}:
     delete:
       tags:
@@ -456,6 +492,14 @@ paths:
         explode: false
         schema:
           type: integer
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -466,6 +510,10 @@ paths:
                 additionalProperties:
                   type: integer
                   format: int32
+      security:
+      - user_auth:
+        - write:user
+        - read:user
   /admin:
     get:
       tags:
@@ -482,6 +530,37 @@ paths:
                 additionalProperties:
                   type: integer
                   format: int32
+    put:
+      tags:
+      - admin
+      summary: Updated admin
+      description: This can only be done by the logged in admin.
+      operationId: updateAdmin
+      parameters:
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        description: Updated admin object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+      responses:
+        "400":
+          description: Invalid admin supplied
+        "404":
+          description: admin not found
+      security:
+      - user_auth:
+        - write:user
+        - read:user
     post:
       tags:
       - admin
@@ -498,6 +577,30 @@ paths:
       responses:
         default:
           description: successful operation
+    delete:
+      tags:
+      - admin
+      summary: Delete admin
+      description: This can only be done by the logged in admin.
+      operationId: deleteAdmin
+      parameters:
+      - name: token
+        in: query
+        description: The ADMIN token
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: Admin not found
+      security:
+      - user_auth:
+        - write:user
+        - read:user
   /admin/login:
     post:
       tags:
@@ -566,7 +669,7 @@ paths:
     get:
       tags:
       - admin
-      summary: Get admin by username
+      summary: Get admin by id
       operationId: getAdminByName
       parameters:
       - name: adminId
@@ -591,61 +694,6 @@ paths:
           description: Invalid username supplied
         "404":
           description: Admin not found
-    put:
-      tags:
-      - admin
-      summary: Updated admin
-      description: This can only be done by the logged in admin.
-      operationId: updateAdmin
-      parameters:
-      - name: adminId
-        in: path
-        description: Id of user you want to get
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-      requestBody:
-        description: Updated admin object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Admin'
-        required: true
-      responses:
-        "400":
-          description: Invalid admin supplied
-        "404":
-          description: admin not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
-    delete:
-      tags:
-      - admin
-      summary: Delete admin
-      description: This can only be done by the logged in admin.
-      operationId: deleteAdmin
-      parameters:
-      - name: adminId
-        in: path
-        description: Id of user you want to get
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-      responses:
-        "400":
-          description: Invalid username supplied
-        "404":
-          description: Admin not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
 components:
   schemas:
     Rent:
