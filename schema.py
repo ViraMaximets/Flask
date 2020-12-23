@@ -29,7 +29,12 @@ class CarSchema(Schema):
 
 class RentSchema(Schema):
     rentId = fields.Int(dump_only=True)
-    owner_id = fields.Nested(UserSchema(exclude=("email", "password")), required=True)
-    car_id = fields.Nested(CarSchema(exclude=("model", "description")), required=True)
-    startT = fields.Date(required=True)
-    endT = fields.Date(required=True)
+    owner_id = fields.Int(dump_only=True)
+    car_id = fields.Int(required=True)
+    startTime = fields.Str(required=True)
+    endTime = fields.Str(required=True)
+
+class LoginSchema(Schema):
+    admin = fields.Int()
+    username = fields.Str(required=True)
+    password = fields.Str(required=True)

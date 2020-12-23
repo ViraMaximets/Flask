@@ -6,14 +6,9 @@ class Admin(Base):
     __tablename__ = 'admin'
 
     adminId = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(40), nullable=False)
+    username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(40), nullable=False)
-
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
+    password = db.Column(db.String(1000), nullable=False)
 
 
 class Brand(Base):
@@ -28,7 +23,7 @@ class Car(Base):
 
     carId = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    brand_id = db.Column(db.Integer, db.ForeignKey(Brand.brandId))
+    brand_id = db.Column(db.Integer, db.ForeignKey(Brand.brandId, ondelete='CASCADE'))
     brand = db.relationship(Brand, backref=db.backref('brand'))
 
     model = db.Column(db.String(50), nullable=False)
@@ -39,9 +34,9 @@ class User(Base):
     __tablename__ = 'user'
 
     userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(40), nullable=False)
+    username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(40), nullable=False)
+    password = db.Column(db.String(1000), nullable=False)
 
 
 class RentStatus(enum.Enum):
@@ -58,11 +53,11 @@ class Rent(Base):
     owner_id = db.Column(db.Integer, db.ForeignKey(User.userId))
     owner = db.relationship(User, backref=db.backref('owner'))
 
-    car_id = db.Column(db.Integer, db.ForeignKey(Car.carId))
+    car_id = db.Column(db.Integer, db.ForeignKey(Car.carId, ondelete='CASCADE'))
     car = db.relationship(Car, backref=db.backref('car'))
 
-    startT = db.Column(db.Date, nullable=False)
-    endT = db.Column(db.Date, nullable=False)
+    startT = db.Column(db.String(12), nullable=False)
+    endT = db.Column(db.String(12), nullable=False)
 
     status = db.Column(db.String(10), default=RentStatus.REQUEST.value)
 

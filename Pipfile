@@ -16,6 +16,7 @@ markupsafe = "==1.1.1"
 pymysql = "==0.10.1"
 python-dateutil = "==2.8.1"
 marshmallow = "*"
+pyjwt = "*"
 
 [dev-packages]
 

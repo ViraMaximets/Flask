@@ -7,6 +7,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://{user}:{password
     user='Vanilla', password='VanillaSuper_', server='localhost', database='fdb')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+app.config['SECRET_KEY'] = 'thisisthesecretkey'
+app.config['JWT_ALGORITHM'] = 'HS256'
+
 db = SQLAlchemy(app)
 
 engine = db.engine
