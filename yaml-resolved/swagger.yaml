@@ -25,6 +25,37 @@ tags:
 - name: brand
   description: Access to brands
 paths:
+  /login:
+    get:
+      tags:
+      - user
+      summary: Add a new car to the store
+      operationId: login
+      parameters:
+      - name: username
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: admin
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "405":
+          description: Invalid input
   /car:
     get:
       tags:
@@ -46,15 +77,6 @@ paths:
       - car
       summary: Add a new car to the store
       operationId: addCar
-      parameters:
-      - name: token
-        in: query
-        description: The ADMIN token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       requestBody:
         $ref: '#/components/requestBodies/Car'
       responses:
@@ -108,14 +130,6 @@ paths:
         explode: false
         schema:
           type: integer
-      - name: token
-        in: query
-        description: The ADMIN token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "200":
           description: successful operation
@@ -150,14 +164,6 @@ paths:
         explode: false
         schema:
           type: integer
-      - name: token
-        in: query
-        description: The ADMIN token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "400":
           description: Invalid ID supplied
@@ -173,15 +179,6 @@ paths:
       - rent
       summary: Find rent orders of user
       operationId: getOrderById
-      parameters:
-      - name: token
-        in: query
-        description: The user token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "200":
           description: successful operation
@@ -243,14 +240,6 @@ paths:
         explode: false
         schema:
           type: integer
-      - name: token
-        in: query
-        description: The user token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "400":
           description: Invalid ID supplied
@@ -282,15 +271,6 @@ paths:
       summary: Updated user
       description: This can only be done by the logged in user.
       operationId: updateUser
-      parameters:
-      - name: token
-        in: query
-        description: The user token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       requestBody:
         description: Updated user object
         content:
@@ -329,77 +309,11 @@ paths:
       summary: Delete user
       description: This can only be done by the logged in user.
       operationId: deleteUser
-      parameters:
-      - name: token
-        in: query
-        description: The user token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "400":
           description: Invalid username supplied
         "404":
           description: User not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
-  /user/login:
-    post:
-      tags:
-      - user
-      summary: Logs user into the system
-      operationId: loginUser
-      parameters:
-      - name: username
-        in: query
-        description: The user name for login
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: password
-        in: query
-        description: The password for login in clear text
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: string
-            application/xml:
-              schema:
-                type: string
-        "400":
-          description: Invalid username/password supplied
-  /user/logout:
-    get:
-      tags:
-      - user
-      summary: Logs out current logged in user session
-      operationId: logoutUser
-      parameters:
-      - name: token
-        in: query
-        description: The user token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        default:
-          description: successful operation
       security:
       - user_auth:
         - write:user
@@ -454,15 +368,6 @@ paths:
       - brand
       summary: Create brand
       operationId: createBrand
-      parameters:
-      - name: token
-        in: query
-        description: The ADMIN token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       requestBody:
         description: Created brand object
         content:
@@ -492,14 +397,6 @@ paths:
         explode: false
         schema:
           type: integer
-      - name: token
-        in: query
-        description: The ADMIN token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "200":
           description: successful operation
@@ -583,84 +480,11 @@ paths:
       summary: Delete admin
       description: This can only be done by the logged in admin.
       operationId: deleteAdmin
-      parameters:
-      - name: token
-        in: query
-        description: The ADMIN token
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "400":
           description: Invalid username supplied
         "404":
           description: Admin not found
-      security:
-      - user_auth:
-        - write:user
-        - read:user
-  /admin/login:
-    post:
-      tags:
-      - admin
-      summary: Logs admin into the system
-      operationId: loginAdmin
-      parameters:
-      - name: username
-        in: query
-        description: The admin name for login
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-          example: Vikky
-      - name: password
-        in: query
-        description: The password for login in clear text
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the admin
-              style: simple
-              explode: false
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              style: simple
-              explode: false
-              schema:
-                type: string
-                format: date-time
-          content:
-            application/json:
-              schema:
-                type: string
-            application/xml:
-              schema:
-                type: string
-        "400":
-          description: Invalid username/password supplied
-  /admin/logout:
-    get:
-      tags:
-      - admin
-      summary: Logs out current logged in admin session
-      operationId: logoutAdmin
-      responses:
-        default:
-          description: successful operation
       security:
       - user_auth:
         - write:user
@@ -699,12 +523,8 @@ components:
     Rent:
       required:
       - car_id
-      - owner_id
       type: object
       properties:
-        owner_id:
-          type: integer
-          format: int64
         car_id:
           type: integer
           format: int64
