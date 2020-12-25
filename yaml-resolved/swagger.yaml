@@ -24,11 +24,13 @@ tags:
   description: Operations of admin
 - name: brand
   description: Access to brands
+- name: login
+  description: Access to login
 paths:
   /login:
     get:
       tags:
-      - user
+      - login
       summary: Add a new car to the store
       operationId: login
       parameters:
