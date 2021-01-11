@@ -17,6 +17,7 @@ pymysql = "==0.10.1"
 python-dateutil = "==2.8.1"
 marshmallow = "*"
 pyjwt = "*"
+pytest = "*"
 
 [dev-packages]
 

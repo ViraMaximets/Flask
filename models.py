@@ -8,7 +8,15 @@ class Admin(Base):
     adminId = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(1000), nullable=False)
+    password = db.Column(db.LargeBinary, nullable=False)
+
+class User(Base):
+    __tablename__ = 'user'
+
+    userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(40), unique=True, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.LargeBinary, nullable=False)
 
 
 class Brand(Base):
@@ -28,16 +36,6 @@ class Car(Base):
 
     model = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(200))
-
-
-class User(Base):
-    __tablename__ = 'user'
-
-    userId = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(40), unique=True, nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    password = db.Column(db.String(1000), nullable=False)
-
 
 class RentStatus(enum.Enum):
     REQUEST = 'REQUEST'
