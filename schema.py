@@ -5,14 +5,14 @@ class UserSchema(Schema):
     userId = fields.Int(dump_only=True)
     username = fields.Str(required=True)
     email = fields.Email(required=True)
-    password = fields.Str(required=True)
+    password = fields.Field(required=True)
 
 
 class AdminSchema(Schema):
     adminId = fields.Int(dump_only=True)
     username = fields.Str(required=True)
     email = fields.Email(required=True)
-    password = fields.Str(required=True)
+    password = fields.Field(required=True)
 
 
 class BrandSchema(Schema):
