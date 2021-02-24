@@ -1,5 +1,14 @@
+flask db init
+flask db migrate
+flask db upgrade
+
+alembic init alembic
+alembic revision --autogenerate
+alembic upgrade head
+
+
 # coverage run -m pytest            coverage report -m
 # python -m pytest test/test_admin.py
 
-    # coverage run -m pytest            coverage report -m
-    # python -m pytest test/test_1_basic.py
+# coverage run -m pytest            coverage report -m
+# python -m pytest test/test_1_basic.py
