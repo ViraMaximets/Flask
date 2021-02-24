@@ -1,0 +1,14 @@
+body, html {
+    height: 100%;
+}
+.background {
+    background-image: url("photo/background.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.background h1 {
+    opacity: 100%;
+}
