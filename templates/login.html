@@ -15,15 +15,15 @@
     <link rel="icon" href="C:\Users\User\Desktop\Projects\Flask_Project\photo\templates\icon.png">
 
     <!-- Page Name and Site Name -->
-    <title>Home page</title>
+    <title>Login</title>
 
     <!-- CSS -->
     <!-- Styles -->
-    <link rel='stylesheet' href='C:\Users\User\Desktop\Projects\Flask_Project\static\css\index.css' type='text/css'>
+    <link rel='stylesheet' href='C:\Users\User\Desktop\Projects\Flask_Project\static\css\login_signup.css'
+          type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-
 <body>
 
 <div class="container">
@@ -31,7 +31,8 @@
     <header class="header clearfix">
         <nav>
             <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="C:\Users\User\Desktop\Projects\Flask_Project\templates\index.html">Home</a></li>
+                <li class="active"><a href="C:\Users\User\Desktop\Projects\Flask_Project\templates\index.html">Home</a>
+                </li>
                 <li><a href="C:\Users\User\Desktop\Projects\Flask_Project\templates\login.html">Login</a></li>
             </ul>
         </nav>
@@ -41,16 +42,29 @@
         <img src="C:\Users\User\Desktop\Projects\Flask_Project\photo\templates\background.png">
 
         <div class="title">
-            <h1> Welcome to AutoRoll </h1>
+            <h1> Login </h1>
         </div>
 
         <div class="centered">
-            <h2>All to provide you with The Perfect Car at the best price.
-                We wish you a safe and enjoyable trip, no matter where and when you plan to go.</h2>
+            <form>
+                <label for="username">Username:</label>
+                <br>
+                <input type="text" id="username" name="username">
+                <br>
+                <label for="pwd">Password:</label>
+                <br>
+                <input type="password" id="pwd" name="pwd">
+                <br>
+                <button class="button btt">Login</button>
+            </form>
         </div>
     </div>
 
+    <h5>Don`t have an account? <a href="C:\Users\User\Desktop\Projects\Flask_Project\templates\signup.html">Sign up!</a>
+    </h5>
+
 </div>
+
 
 <br>
 <footer class="footer">
