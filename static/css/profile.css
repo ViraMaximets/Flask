@@ -30,32 +30,40 @@ h1 {
 footer {
     text-align: center;
     padding: 20px;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
 }
 
-/* Container holding the image and the text */
-.container {
+.title{
     position: relative;
-    text-align: center;
     color: #141414;
 }
 
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    backdrop-filter: blur(5px);
-    color: rgb(7, 28, 33);
+.card-body{
+padding: 30px;
 }
 
-.title {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    backdrop-filter: blur(5px);
-    color: rgb(2, 16, 19);
+.button {
+    border: none;
+    color: rgb(7, 28, 33);
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin-top: 5%;
+    cursor: pointer;
 }
+
+.btt:hover {
+    background-color: rgb(40, 74, 15);
+    color: rgb(255, 255, 255);
+}
+
+.btt-bad:hover{
+        background-color: rgb(183, 28, 28);
+    color: rgb(255, 255, 255);
+}
+
