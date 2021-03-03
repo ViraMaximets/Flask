@@ -70,16 +70,24 @@ figcaption {
     height: 100%;
     object-fit: cover;
 }
-
+.a{
+      border: none;
+  color: rgb(7, 28, 33);
+  font-size: 1em;
+  text-align: center;
+  cursor: pointer;
+}
 .button {
   border: none;
   color: rgb(7, 28, 33);
   font-size: 1em;
   text-align: center;
   cursor: pointer;
+   width: 100%;
 }
 
 .btt:hover {
   background-color: rgb(40, 74, 15);
   color: rgb(255, 255, 255);
+
 }
