@@ -31,8 +31,8 @@ class Car(Base):
 
     carId = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    brand_id = db.Column(db.Integer, db.ForeignKey(Brand.brandId, ondelete='CASCADE'))
-    brand = db.relationship(Brand, backref=db.backref('brand'))
+    brand_id = db.Column(db.Integer, db.ForeignKey(Brand.brandId, ondelete='SET NULL'))
+    brand = db.relationship(Brand, backref=db.backref('brand', lazy = True), passive_deletes = "all")
 
     model = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(200))
@@ -48,11 +48,11 @@ class Rent(Base):
 
     rentId = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    owner_id = db.Column(db.Integer, db.ForeignKey(User.userId))
-    owner = db.relationship(User, backref=db.backref('owner'))
+    owner_id = db.Column(db.Integer, db.ForeignKey(User.userId, ondelete='CASCADE'))
+    owner = db.relationship(User, backref=db.backref('owner', lazy = True), passive_deletes = "all")
 
-    car_id = db.Column(db.Integer, db.ForeignKey(Car.carId, ondelete='CASCADE'))
-    car = db.relationship(Car, backref=db.backref('car'))
+    car_id = db.Column(db.Integer, db.ForeignKey(Car.carId, ondelete='CASCADE'), passive_deletes = "all")
+    car = db.relationship(Car, backref=db.backref('car', lazy = True))
 
     startT = db.Column(db.String(12), nullable=False)
     endT = db.Column(db.String(12), nullable=False)
